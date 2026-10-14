@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="header">
+    <view class="date">{{dateText}}</view>
+    <view class="summary">
+      今日已获得 <text class="hl">{{doneCount}}</text> / {{habits.length}} 颗星
+    </view>
+    <view class="progress">
+      <view class="progress-bar" style="width: {{percent}}%"></view>
+    </view>
+    <view class="quote">{{quote}}</view>
+  </view>
+
+  <view wx:if="{{!habits.length}}" class="empty">还没有习惯，先添加一个吧</view>
+
+  <view class="list">
+    <view
+      wx:for="{{habits}}"
+      wx:key="id"
+      class="card {{item.checked ? 'checked' : ''}}"
+      data-id="{{item.id}}"
+      bindtap="onToggle"
+      bindlongpress="onEdit"
+    >
+      <view class="icon">{{item.icon}}</view>
+      <view class="info">
+        <view class="name">{{item.name}}</view>
+        <view class="meta">连续 {{item.streak}} 天 · 累计 {{item.total}} 次</view>
+      </view>
+      <view class="star">{{item.checked ? '★' : '☆'}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{habits.length}}" class="tip">点击打卡 · 长按编辑</view>
+
+  <view class="add btn btn-primary" bindtap="onAdd">＋ 新习惯</view>
+</view>

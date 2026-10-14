@@ -1,0 +1,121 @@
+.header {
+  padding: 32rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 6rpx 24rpx rgba(224, 155, 0, 0.08);
+}
+
+.date {
+  font-size: 26rpx;
+  color: #9A8F7E;
+}
+
+.summary {
+  margin-top: 12rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.hl {
+  color: #E09B00;
+  font-size: 48rpx;
+}
+
+.progress {
+  margin-top: 24rpx;
+  height: 16rpx;
+  background: #FBEFD0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD15C, #F5B301);
+  border-radius: 8rpx;
+  transition: width 0.3s;
+}
+
+.quote {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #B3A68F;
+}
+
+.empty {
+  margin-top: 120rpx;
+  text-align: center;
+  color: #B3A68F;
+}
+
+.list {
+  margin-top: 32rpx;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  margin-bottom: 20rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.card.checked {
+  background: #FFF3CC;
+  border-color: #F5D774;
+}
+
+.icon {
+  font-size: 48rpx;
+  width: 72rpx;
+}
+
+.info {
+  flex: 1;
+  margin-left: 16rpx;
+}
+
+.name {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.card.checked .name {
+  color: #8A6A00;
+}
+
+.meta {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #B3A68F;
+}
+
+.star {
+  font-size: 56rpx;
+  color: #D9CFBF;
+}
+
+.card.checked .star {
+  color: #F5B301;
+}
+
+.tip {
+  text-align: center;
+  font-size: 22rpx;
+  color: #C8BCA8;
+}
+
+.add {
+  position: fixed;
+  left: 32rpx;
+  right: 32rpx;
+  bottom: 40rpx;
+  box-shadow: 0 8rpx 24rpx rgba(245, 179, 1, 0.35);
+}

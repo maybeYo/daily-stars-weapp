@@ -1,0 +1,29 @@
+page {
+  background: #FFF8E7;
+  color: #3A3226;
+  font-size: 28rpx;
+  font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+}
+
+.page {
+  padding: 32rpx;
+  padding-bottom: 160rpx;
+}
+
+.btn {
+  height: 92rpx;
+  line-height: 92rpx;
+  border-radius: 46rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #F5B301;
+  color: #FFFFFF;
+}
+
+.btn-primary:active {
+  background: #E09B00;
+}
