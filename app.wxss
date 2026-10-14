@@ -1,8 +1,58 @@
 page {
-  background: #FFF8E7;
-  color: #3A3226;
+  --bg: #FFF8E7;
+  --surface: #FFFFFF;
+  --text: #3A3226;
+  --muted: #9A8F7E;
+  --faint: #B3A68F;
+  --fainter: #C8BCA8;
+  --line: #F4EDE0;
+  --star-off: #D9CFBF;
+  --accent: #F5B301;
+  --accent-strong: #E09B00;
+  --accent-light: #FFD15C;
+  --accent-soft: #FBEFD0;
+  --checked-bg: #FFF3CC;
+  --checked-border: #F5D774;
+  --checked-text: #8A6A00;
+  --danger: #E5533D;
+  --shadow: rgba(224, 155, 0, 0.08);
+  --heat-0: #F4EDE0;
+  --heat-1: #FCE6A4;
+  --heat-2: #F9D35E;
+  --heat-3: #F5B301;
+  --heat-4: #D98E00;
+
+  background: var(--bg);
+  color: var(--text);
   font-size: 28rpx;
   font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  page {
+    --bg: #17140F;
+    --surface: #241F18;
+    --text: #EDE6D9;
+    --muted: #A89C88;
+    --faint: #857A68;
+    --fainter: #6B6254;
+    --line: #2E2820;
+    --star-off: #4A4236;
+    --accent: #F5B301;
+    --accent-strong: #FFC233;
+    --accent-light: #FFD15C;
+    --accent-soft: #3A3020;
+    --checked-bg: #3A2F14;
+    --checked-border: #6E5518;
+    --checked-text: #FFD15C;
+    --danger: #FF6B57;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --heat-0: #2E2820;
+    --heat-1: #5C4813;
+    --heat-2: #8A6A0E;
+    --heat-3: #C79300;
+    --heat-4: #F5B301;
+  }
 }
 
 .page {
@@ -20,10 +70,10 @@ page {
 }
 
 .btn-primary {
-  background: #F5B301;
+  background: var(--accent);
   color: #FFFFFF;
 }
 
 .btn-primary:active {
-  background: #E09B00;
+  background: var(--accent-strong);
 }

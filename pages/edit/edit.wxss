@@ -1,7 +1,7 @@
 .label {
   margin: 32rpx 0 16rpx;
   font-size: 26rpx;
-  color: #9A8F7E;
+  color: var(--muted);
 }
 
 .label:first-child {
@@ -11,7 +11,7 @@
 .input {
   height: 96rpx;
   padding: 0 28rpx;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 20rpx;
   font-size: 30rpx;
 }
@@ -28,15 +28,15 @@
   line-height: 112rpx;
   text-align: center;
   font-size: 52rpx;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 20rpx;
   border: 4rpx solid transparent;
   box-sizing: border-box;
 }
 
 .icon-item.active {
-  border-color: #F5B301;
-  background: #FFF3CC;
+  border-color: var(--accent);
+  background: var(--checked-bg);
 }
 
 .save {
@@ -46,6 +46,6 @@
 .delete {
   margin-top: 32rpx;
   text-align: center;
-  color: #E5533D;
+  color: var(--danger);
   font-size: 28rpx;
 }

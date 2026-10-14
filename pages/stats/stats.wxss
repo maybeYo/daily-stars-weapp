@@ -1,7 +1,7 @@
 .overview {
   display: flex;
   padding: 32rpx 0;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 24rpx;
 }
 
@@ -13,19 +13,19 @@
 .ov-num {
   font-size: 48rpx;
   font-weight: 700;
-  color: #E09B00;
+  color: var(--accent-strong);
 }
 
 .ov-label {
   margin-top: 4rpx;
   font-size: 24rpx;
-  color: #9A8F7E;
+  color: var(--muted);
 }
 
 .section {
   margin-top: 32rpx;
   padding: 32rpx;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 24rpx;
 }
 
@@ -45,7 +45,7 @@
 .week-name {
   text-align: center;
   font-size: 22rpx;
-  color: #B3A68F;
+  color: var(--faint);
   margin-bottom: 12rpx;
 }
 
@@ -56,14 +56,14 @@
 }
 
 .cell.today {
-  border: 4rpx solid #E09B00;
+  border: 4rpx solid var(--accent-strong);
 }
 
-.level-0 { background: #F4EDE0; }
-.level-1 { background: #FCE6A4; }
-.level-2 { background: #F9D35E; }
-.level-3 { background: #F5B301; }
-.level-4 { background: #D98E00; }
+.level-0 { background: var(--heat-0); }
+.level-1 { background: var(--heat-1); }
+.level-2 { background: var(--heat-2); }
+.level-3 { background: var(--heat-3); }
+.level-4 { background: var(--heat-4); }
 
 .legend {
   display: flex;
@@ -72,7 +72,7 @@
   gap: 8rpx;
   margin-top: 20rpx;
   font-size: 22rpx;
-  color: #B3A68F;
+  color: var(--faint);
 }
 
 .cell.mini {
@@ -85,7 +85,7 @@
   display: flex;
   align-items: center;
   padding: 20rpx 0;
-  border-bottom: 1rpx solid #F4EDE0;
+  border-bottom: 1rpx solid var(--line);
 }
 
 .row:last-child {
@@ -108,17 +108,17 @@
 }
 
 .hl {
-  color: #E09B00;
+  color: var(--accent-strong);
   font-weight: 600;
 }
 
 .sub {
   margin-top: 4rpx;
   font-size: 22rpx;
-  color: #B3A68F;
+  color: var(--faint);
 }
 
 .empty {
   text-align: center;
-  color: #B3A68F;
+  color: var(--faint);
 }

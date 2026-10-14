@@ -27,7 +27,8 @@ Page({
     dayTabs: DAY_TABS,
     offset: 0,
     popId: '',
-    stars: []
+    stars: [],
+    sorting: false
   },
 
   onShow() {
@@ -72,7 +73,19 @@ Page({
     this.refresh()
   },
 
+  onToggleSort() {
+    // 排序回到今天，避免补卡视图里隐藏的习惯让移动看起来没反应
+    this.setData({ sorting: !this.data.sorting, offset: 0 })
+    this.refresh()
+  },
+
+  onMove(e) {
+    const { id, dir } = e.currentTarget.dataset
+    if (store.moveHabit(id, Number(dir))) this.refresh()
+  },
+
   onToggle(e) {
+    if (this.data.sorting) return
     // 页面开着跨过零点时，先切到新的一天，避免把卡打到错的日期
     if (store.dateKey() !== this.today) {
       this.refresh()

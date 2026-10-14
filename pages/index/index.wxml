@@ -2,7 +2,7 @@
   <view class="header">
     <view class="header-top">
       <view class="date">{{dateText}}</view>
-      <view class="days">
+      <view wx:if="{{!sorting}}" class="days">
         <view
           wx:for="{{dayTabs}}"
           wx:key="offset"
@@ -40,14 +40,34 @@
         <view class="name">{{item.name}}</view>
         <view class="meta">连续 {{item.streak}} 天 · 累计 {{item.total}} 次</view>
       </view>
-      <view class="more" data-id="{{item.id}}" catchtap="onEdit">···</view>
-      <view class="star {{item.id === popId ? 'pop' : ''}}">{{item.checked ? '★' : '☆'}}</view>
+      <block wx:if="{{sorting}}">
+        <view
+          class="move {{index === 0 ? 'disabled' : ''}}"
+          data-id="{{item.id}}"
+          data-dir="-1"
+          catchtap="onMove"
+        >↑</view>
+        <view
+          class="move {{index === habits.length - 1 ? 'disabled' : ''}}"
+          data-id="{{item.id}}"
+          data-dir="1"
+          catchtap="onMove"
+        >↓</view>
+      </block>
+      <block wx:else>
+        <view class="more" data-id="{{item.id}}" catchtap="onEdit">···</view>
+        <view class="star {{item.id === popId ? 'pop' : ''}}">{{item.checked ? '★' : '☆'}}</view>
+      </block>
     </view>
   </view>
 
-  <view wx:if="{{habits.length}}" class="tip">点击卡片打卡 · 点 ··· 编辑</view>
+  <view wx:if="{{habits.length}}" class="tip">
+    <text>{{sorting ? '点箭头调整顺序' : '点击卡片打卡 · 点 ··· 编辑'}}</text>
+    <text wx:if="{{habits.length > 1}}" class="sort-btn" bindtap="onToggleSort">{{sorting ? '完成' : '排序'}}</text>
+  </view>
 
-  <view class="add btn btn-primary" bindtap="onAdd">＋ 新习惯</view>
+  <view wx:if="{{sorting}}" class="add btn btn-primary" bindtap="onToggleSort">完成排序</view>
+  <view wx:else class="add btn btn-primary" bindtap="onAdd">＋ 新习惯</view>
 
   <view wx:if="{{stars.length}}" class="burst">
     <text
