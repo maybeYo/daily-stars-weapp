@@ -5,9 +5,41 @@
   box-shadow: 0 6rpx 24rpx rgba(224, 155, 0, 0.08);
 }
 
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .date {
   font-size: 26rpx;
   color: #9A8F7E;
+}
+
+.days {
+  display: flex;
+  padding: 4rpx;
+  background: #FBEFD0;
+  border-radius: 28rpx;
+}
+
+.day {
+  padding: 6rpx 20rpx;
+  font-size: 22rpx;
+  color: #9A8F7E;
+  border-radius: 24rpx;
+}
+
+.day.active {
+  background: #FFFFFF;
+  color: #E09B00;
+  font-weight: 600;
+}
+
+.makeup {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #E09B00;
 }
 
 .summary {
@@ -97,9 +129,27 @@
   color: #B3A68F;
 }
 
+.more {
+  padding: 16rpx 20rpx;
+  margin-right: 8rpx;
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+  color: #C8BCA8;
+}
+
 .star {
   font-size: 56rpx;
   color: #D9CFBF;
+}
+
+.star.pop {
+  animation: pop 0.45s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.5) rotate(-12deg); }
+  100% { transform: scale(1) rotate(0); }
 }
 
 .card.checked .star {
@@ -118,4 +168,28 @@
   right: 32rpx;
   bottom: 40rpx;
   box-shadow: 0 8rpx 24rpx rgba(245, 179, 1, 0.35);
+}
+
+.burst {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.burst-star {
+  position: absolute;
+  top: -80rpx;
+  color: #F5B301;
+  opacity: 0;
+  animation: fall 1.6s ease-in forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
 }

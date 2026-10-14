@@ -50,5 +50,12 @@ Page({
       cells,
       habitStats
     })
+  },
+
+  onShareAppMessage() {
+    return {
+      title: `我已累计点亮 ${this.data.totalStars} 颗星 ⭐ Daily Stars`,
+      path: '/pages/index/index'
+    }
   }
 })
