@@ -58,6 +58,19 @@ function updateHabit(id, fields) {
   saveHabits(getHabits().map(h => (h.id === id ? Object.assign({}, h, fields) : h)))
 }
 
+// 与相邻习惯交换位置，dir：-1 上移，1 下移
+function moveHabit(id, dir) {
+  const habits = getHabits()
+  const i = habits.findIndex(h => h.id === id)
+  const j = i + dir
+  if (i === -1 || j < 0 || j >= habits.length) return false
+  const t = habits[i]
+  habits[i] = habits[j]
+  habits[j] = t
+  saveHabits(habits)
+  return true
+}
+
 function removeHabit(id) {
   saveHabits(getHabits().filter(h => h.id !== id))
   const records = getRecords()
@@ -133,6 +146,7 @@ module.exports = {
   getHabit,
   addHabit,
   updateHabit,
+  moveHabit,
   removeHabit,
   isChecked,
   toggleCheck,

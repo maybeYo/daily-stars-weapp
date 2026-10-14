@@ -1,8 +1,8 @@
 .header {
   padding: 32rpx;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 24rpx;
-  box-shadow: 0 6rpx 24rpx rgba(224, 155, 0, 0.08);
+  box-shadow: 0 6rpx 24rpx var(--shadow);
 }
 
 .header-top {
@@ -13,33 +13,33 @@
 
 .date {
   font-size: 26rpx;
-  color: #9A8F7E;
+  color: var(--muted);
 }
 
 .days {
   display: flex;
   padding: 4rpx;
-  background: #FBEFD0;
+  background: var(--accent-soft);
   border-radius: 28rpx;
 }
 
 .day {
   padding: 6rpx 20rpx;
   font-size: 22rpx;
-  color: #9A8F7E;
+  color: var(--muted);
   border-radius: 24rpx;
 }
 
 .day.active {
-  background: #FFFFFF;
-  color: #E09B00;
+  background: var(--surface);
+  color: var(--accent-strong);
   font-weight: 600;
 }
 
 .makeup {
   margin-top: 20rpx;
   font-size: 24rpx;
-  color: #E09B00;
+  color: var(--accent-strong);
 }
 
 .summary {
@@ -49,21 +49,21 @@
 }
 
 .hl {
-  color: #E09B00;
+  color: var(--accent-strong);
   font-size: 48rpx;
 }
 
 .progress {
   margin-top: 24rpx;
   height: 16rpx;
-  background: #FBEFD0;
+  background: var(--accent-soft);
   border-radius: 8rpx;
   overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #FFD15C, #F5B301);
+  background: linear-gradient(90deg, var(--accent-light), var(--accent));
   border-radius: 8rpx;
   transition: width 0.3s;
 }
@@ -71,13 +71,13 @@
 .quote {
   margin-top: 20rpx;
   font-size: 24rpx;
-  color: #B3A68F;
+  color: var(--faint);
 }
 
 .empty {
   margin-top: 120rpx;
   text-align: center;
-  color: #B3A68F;
+  color: var(--faint);
 }
 
 .list {
@@ -89,7 +89,7 @@
   align-items: center;
   padding: 28rpx 32rpx;
   margin-bottom: 20rpx;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 20rpx;
   border: 2rpx solid transparent;
   transition: all 0.2s;
@@ -100,8 +100,8 @@
 }
 
 .card.checked {
-  background: #FFF3CC;
-  border-color: #F5D774;
+  background: var(--checked-bg);
+  border-color: var(--checked-border);
 }
 
 .icon {
@@ -120,13 +120,13 @@
 }
 
 .card.checked .name {
-  color: #8A6A00;
+  color: var(--checked-text);
 }
 
 .meta {
   margin-top: 6rpx;
   font-size: 22rpx;
-  color: #B3A68F;
+  color: var(--faint);
 }
 
 .more {
@@ -134,12 +134,12 @@
   margin-right: 8rpx;
   font-size: 28rpx;
   letter-spacing: 2rpx;
-  color: #C8BCA8;
+  color: var(--fainter);
 }
 
 .star {
   font-size: 56rpx;
-  color: #D9CFBF;
+  color: var(--star-off);
 }
 
 .star.pop {
@@ -153,13 +153,35 @@
 }
 
 .card.checked .star {
-  color: #F5B301;
+  color: var(--accent);
 }
 
 .tip {
   text-align: center;
   font-size: 22rpx;
-  color: #C8BCA8;
+  color: var(--fainter);
+}
+
+.sort-btn {
+  margin-left: 24rpx;
+  padding: 8rpx 0;
+  color: var(--accent-strong);
+}
+
+.move {
+  width: 72rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  margin-left: 12rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: 50%;
+}
+
+.move.disabled {
+  opacity: 0.3;
 }
 
 .add {
@@ -184,7 +206,7 @@
 .burst-star {
   position: absolute;
   top: -80rpx;
-  color: #F5B301;
+  color: var(--accent);
   opacity: 0;
   animation: fall 1.6s ease-in forwards;
 }
