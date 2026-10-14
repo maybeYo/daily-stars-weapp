@@ -24,9 +24,10 @@
         wx:for="{{cells}}"
         wx:key="key"
         class="cell level-{{item.level}} {{item.isToday ? 'today' : ''}}"
+        aria-label="{{item.label}}"
       ></view>
     </view>
-    <view class="legend">
+    <view class="legend" aria-hidden="true">
       <text>少</text>
       <view class="cell mini level-0"></view>
       <view class="cell mini level-1"></view>

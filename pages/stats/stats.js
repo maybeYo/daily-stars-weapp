@@ -1,6 +1,7 @@
 const store = require('../../utils/store')
 
 const WEEKS = 5
+const LEVEL_TEXT = ['未打卡', '完成少量', '完成一半左右', '完成大部分', '全部完成']
 
 Page({
   data: {
@@ -40,7 +41,12 @@ Page({
       const key = store.dateKey(d)
       const ratio = ids.length ? countOf(key) / ids.length : 0
       const level = ratio === 0 ? 0 : ratio >= 1 ? 4 : Math.ceil(ratio * 3)
-      cells.push({ key, level, isToday: key === todayKey })
+      cells.push({
+        key,
+        level,
+        isToday: key === todayKey,
+        label: `${d.getMonth() + 1}月${d.getDate()}日，${LEVEL_TEXT[level]}`
+      })
     }
 
     this.setData({
