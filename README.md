@@ -19,7 +19,7 @@ Daily Stars — a minimal WeChat mini program for daily habit check-in
 
 ## 测试
 
-```
+```shell
 npm test
 ```
 
