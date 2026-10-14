@@ -14,11 +14,13 @@
       wx:for="{{icons}}"
       wx:key="*this"
       class="icon-item {{item === icon ? 'active' : ''}}"
+      aria-role="button"
+      aria-label="图标 {{item}}{{item === icon ? '，已选中' : ''}}"
       data-icon="{{item}}"
       bindtap="onPick"
     >{{item}}</view>
   </view>
 
-  <view class="save btn btn-primary" bindtap="onSave">保存</view>
-  <view wx:if="{{id}}" class="delete" bindtap="onDelete">删除这个习惯</view>
+  <view class="save btn btn-primary" aria-role="button" bindtap="onSave">保存</view>
+  <view wx:if="{{id}}" class="delete" aria-role="button" bindtap="onDelete">删除这个习惯</view>
 </view>

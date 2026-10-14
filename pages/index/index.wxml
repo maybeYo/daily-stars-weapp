@@ -7,6 +7,8 @@
           wx:for="{{dayTabs}}"
           wx:key="offset"
           class="day {{item.offset === offset ? 'active' : ''}}"
+          aria-role="button"
+          aria-label="{{item.label}}{{item.offset === offset ? '，已选中' : ''}}"
           data-offset="{{item.offset}}"
           bindtap="onPickDay"
         >{{item.label}}</view>
@@ -31,6 +33,8 @@
       wx:for="{{habits}}"
       wx:key="id"
       class="card {{item.checked ? 'checked' : ''}}"
+      aria-role="button"
+      aria-label="{{item.name}}，{{item.checked ? '已打卡' : '未打卡'}}，连续 {{item.streak}} 天"
       data-id="{{item.id}}"
       bindtap="onToggle"
       bindlongpress="onEdit"
@@ -43,33 +47,37 @@
       <block wx:if="{{sorting}}">
         <view
           class="move {{index === 0 ? 'disabled' : ''}}"
+          aria-role="button"
+          aria-label="上移{{item.name}}"
           data-id="{{item.id}}"
           data-dir="-1"
           catchtap="onMove"
         >↑</view>
         <view
           class="move {{index === habits.length - 1 ? 'disabled' : ''}}"
+          aria-role="button"
+          aria-label="下移{{item.name}}"
           data-id="{{item.id}}"
           data-dir="1"
           catchtap="onMove"
         >↓</view>
       </block>
       <block wx:else>
-        <view class="more" data-id="{{item.id}}" catchtap="onEdit">···</view>
-        <view class="star {{item.id === popId ? 'pop' : ''}}">{{item.checked ? '★' : '☆'}}</view>
+        <view class="more" aria-role="button" aria-label="编辑{{item.name}}" data-id="{{item.id}}" catchtap="onEdit">···</view>
+        <view class="star {{item.id === popId ? 'pop' : ''}}" aria-hidden="true">{{item.checked ? '★' : '☆'}}</view>
       </block>
     </view>
   </view>
 
   <view wx:if="{{habits.length}}" class="tip">
     <text>{{sorting ? '点箭头调整顺序' : '点击卡片打卡 · 点 ··· 编辑'}}</text>
-    <text wx:if="{{habits.length > 1}}" class="sort-btn" bindtap="onToggleSort">{{sorting ? '完成' : '排序'}}</text>
+    <text wx:if="{{habits.length > 1}}" class="sort-btn" aria-role="button" bindtap="onToggleSort">{{sorting ? '完成' : '排序'}}</text>
   </view>
 
   <view wx:if="{{sorting}}" class="add btn btn-primary" bindtap="onToggleSort">完成排序</view>
   <view wx:else class="add btn btn-primary" bindtap="onAdd">＋ 新习惯</view>
 
-  <view wx:if="{{stars.length}}" class="burst">
+  <view wx:if="{{stars.length}}" class="burst" aria-hidden="true">
     <text
       wx:for="{{stars}}"
       wx:key="id"

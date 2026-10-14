@@ -25,6 +25,8 @@ npm test
 
 用 Node 自带的测试框架（需 Node 20+）模拟 `wx` 存储，测试 `utils/store.js` 的打卡与连续天数逻辑。`tests/` 和 `package.json` 已在 `project.config.json` 中排除，不会打包进小程序。
 
+开 PR 或推送到 `main` 时，GitHub Actions（`.github/workflows/test.yml`）会自动运行测试。
+
 ## 目录
 
 ```txt
