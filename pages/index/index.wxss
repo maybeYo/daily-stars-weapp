@@ -49,6 +49,7 @@
 }
 
 .hl {
+  margin: 0 8rpx;
   color: var(--accent-strong);
   font-size: 48rpx;
 }
