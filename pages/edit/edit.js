@@ -32,6 +32,10 @@ Page({
       wx.showToast({ title: '请输入习惯名称', icon: 'none' })
       return
     }
+    if (store.getHabits().some(h => h.id !== this.data.id && h.name === name)) {
+      wx.showToast({ title: '已有同名习惯', icon: 'none' })
+      return
+    }
     if (this.data.id) store.updateHabit(this.data.id, { name, icon: this.data.icon })
     else store.addHabit(name, this.data.icon)
     wx.navigateBack()
