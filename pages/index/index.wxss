@@ -68,9 +68,12 @@
   background: var(--accent-strong);
 }
 
+/* 全部取消是撤销操作，做成不抢眼的文字按钮 */
 .all-btn.undo {
-  color: var(--muted);
-  background: var(--accent-soft);
+  padding: 10rpx 8rpx;
+  font-weight: 400;
+  color: var(--faint);
+  background: transparent;
 }
 
 .hl {
@@ -182,6 +185,11 @@
   100% { transform: scale(1) rotate(0); }
 }
 
+.card.checked .more {
+  color: var(--checked-text);
+  opacity: 0.6;
+}
+
 .card.checked .star {
   color: var(--accent);
 }
@@ -221,13 +229,15 @@
 }
 
 .upcoming-date {
-  width: 200rpx;
+  flex-shrink: 0;
+  margin-right: 24rpx;
   font-size: 24rpx;
   color: var(--accent-strong);
 }
 
 .upcoming-icon {
-  width: 56rpx;
+  flex-shrink: 0;
+  margin-right: 12rpx;
 }
 
 .upcoming-name {

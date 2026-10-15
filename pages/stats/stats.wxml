@@ -33,10 +33,6 @@
     <view class="cal-summary">
       本月打卡 <text class="hl">{{monthDays}}</text> 天 · 全勤 <text class="hl">{{monthPerfect}}</text> 天
     </view>
-    <view wx:if="{{noteStats.length}}" class="note-stats">
-      <text class="note-stats-label">随手记</text>
-      <text wx:for="{{noteStats}}" wx:key="key" class="note-stat">{{item.icon}} {{item.name}} {{item.count}}</text>
-    </view>
     <view class="week-head">
       <view wx:for="{{weekNames}}" wx:key="*this" class="week-name">{{item}}</view>
     </view>
@@ -88,6 +84,50 @@
         <text wx:if="{{selectedFuture}}" class="detail-edit" aria-hidden="true">›</text>
         <text wx:else class="detail-star {{item.checked ? 'on' : ''}}" aria-hidden="true">{{item.checked ? '★' : '☆'}}</text>
       </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="note-head">
+      <view class="section-title">随手记</view>
+      <view class="seg">
+        <view
+          class="seg-item {{noteRange === 'month' ? 'active' : ''}}"
+          aria-role="button"
+          aria-label="{{noteMonthLabel}}{{noteRange === 'month' ? '，已选中' : ''}}"
+          data-range="month"
+          bindtap="onNoteRange"
+        >{{noteMonthLabel}}</view>
+        <view
+          class="seg-item {{noteRange === 'all' ? 'active' : ''}}"
+          aria-role="button"
+          aria-label="全部{{noteRange === 'all' ? '，已选中' : ''}}"
+          data-range="all"
+          bindtap="onNoteRange"
+        >全部</view>
+      </view>
+    </view>
+    <view wx:for="{{noteRows}}" wx:key="key">
+      <view
+        class="note-row"
+        aria-role="button"
+        aria-label="{{item.name}} {{item.count}} 件{{item.count ? '，点击查看' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onToggleNoteCat"
+      >
+        <text class="note-cat">{{item.icon}} {{item.name}}</text>
+        <view class="bar" aria-hidden="true">
+          <view class="bar-fill" style="width: {{item.pct}}%"></view>
+        </view>
+        <text class="note-count {{item.count ? '' : 'zero'}}">{{item.count}}</text>
+      </view>
+      <view wx:if="{{noteOpenKey === item.key}}" class="note-items">
+        <view wx:for="{{item.items}}" wx:for-item="n" wx:key="id" class="note-item">{{n.text}}</view>
+        <view wx:if="{{item.more}}" class="note-more">还有 {{item.more}} 件</view>
+      </view>
+    </view>
+    <view class="note-foot">
+      {{noteTotal ? '共 ' + noteTotal + ' 件 · 最常做：' + noteTop + ' · 点类别看明细' : (noteRange === 'month' ? '这个月还没有随手记' : '首页点「✎ 记一件事」开始记录')}}
     </view>
   </view>
 

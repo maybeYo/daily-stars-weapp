@@ -175,17 +175,21 @@ test('hasNote 只认同一天同名的随手记', t => {
   assert.equal(store.hasNote('跑步', '2026-03-02'), false)
 })
 
-test('noteCounts 按月按类别统计已完成的随手记', t => {
+test('noteSummary 按类别统计已完成的随手记，可按月或全部', t => {
   const store = setup(t)
-  store.addNote('帮忙', 'help')
-  store.addNote('帮忙 2', 'help', '2026-03-01')
+  store.addNote('帮忙', 'help', '2026-03-01')
+  store.addNote('帮忙 2', 'help')
   store.addNote('存钱', 'money', '2026-02-28')
   const undone = store.addNote('喝水', 'health')
   store.toggleCheck(undone.id)
   store.addHabit('体检', '🏥', { type: 'once', date: '2026-03-05' })
-  assert.deepEqual(store.noteCounts('2026-03').map(c => [c.key, c.count]), [['help', 2]])
-  assert.deepEqual(store.noteCounts('2026-02').map(c => [c.key, c.count]), [['money', 1]])
-  assert.deepEqual(store.noteCounts('2026-04'), [])
+  const counts = list => list.map(c => c.count)
+  // 5 个类别都返回，顺序固定：助人 健康 理财 学习 其他
+  assert.deepEqual(counts(store.noteSummary('2026-03')), [2, 0, 0, 0, 0])
+  assert.deepEqual(counts(store.noteSummary('2026-02')), [0, 0, 1, 0, 0])
+  assert.deepEqual(counts(store.noteSummary()), [2, 0, 1, 0, 0])
+  // 明细按日期从新到旧
+  assert.deepEqual(store.noteSummary()[0].items.map(h => h.name), ['帮忙 2', '帮忙'])
 })
 
 test('addNote 记到以后的日子：先排上，不算完成', t => {
@@ -193,7 +197,7 @@ test('addNote 记到以后的日子：先排上，不算完成', t => {
   const n = store.addNote('帮爸妈大扫除', 'help', '2026-03-07')
   assert.equal(n.date, '2026-03-07')
   assert.equal(store.isChecked(n.id, '2026-03-07'), false)
-  assert.deepEqual(store.noteCounts('2026-03'), [])
+  assert.equal(store.noteSummary('2026-03')[0].count, 0)
 })
 
 test('checkAll / uncheckAll 一键打卡和取消，只动需要动的', t => {

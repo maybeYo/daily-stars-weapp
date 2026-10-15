@@ -111,15 +111,17 @@ function hasNote(name, key) {
   return getHabits().some(h => h.category && h.date === key && h.name === name)
 }
 
-// 某个月（'YYYY-MM'）里已完成的随手记，按类别计数，只返回有记录的类别
-function noteCounts(month, habits = getHabits(), records = getRecords()) {
-  return CATEGORIES.map(c =>
-    Object.assign({}, c, {
-      count: habits.filter(h =>
-        h.category === c.key && h.date.slice(0, 7) === month && isChecked(h.id, h.date, records)
-      ).length
-    })
-  ).filter(c => c.count > 0)
+// 随手记统计：每个类别已完成的件数和明细（日期新的在前）。month 为 'YYYY-MM'，不传则统计全部
+function noteSummary(month, habits = getHabits(), records = getRecords()) {
+  const done = habits.filter(h =>
+    h.category && (!month || h.date.slice(0, 7) === month) && isChecked(h.id, h.date, records)
+  )
+  return CATEGORIES.map(c => {
+    const items = done
+      .filter(h => h.category === c.key)
+      .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+    return Object.assign({}, c, { count: items.length, items })
+  })
 }
 
 function removeHabit(id) {
@@ -214,7 +216,7 @@ module.exports = {
   getCategory,
   addNote,
   hasNote,
-  noteCounts,
+  noteSummary,
   dateKey,
   parseKey,
   addDays,
