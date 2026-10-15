@@ -16,11 +16,6 @@ page {
   --checked-text: #8A6A00;
   --danger: #E5533D;
   --shadow: rgba(224, 155, 0, 0.08);
-  --heat-0: #F4EDE0;
-  --heat-1: #FCE6A4;
-  --heat-2: #F9D35E;
-  --heat-3: #F5B301;
-  --heat-4: #D98E00;
 
   background: var(--bg);
   color: var(--text);
@@ -47,11 +42,6 @@ page {
     --checked-text: #FFD15C;
     --danger: #FF6B57;
     --shadow: rgba(0, 0, 0, 0.3);
-    --heat-0: #2E2820;
-    --heat-1: #5C4813;
-    --heat-2: #8A6A0E;
-    --heat-3: #C79300;
-    --heat-4: #F5B301;
   }
 }
 
