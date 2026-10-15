@@ -10,6 +10,8 @@ Page({
     bestStreak: 0,
     weekNames: ['一', '二', '三', '四', '五', '六', '日'],
     monthTitle: '',
+    monthValue: '',
+    isThisMonth: true,
     canPrev: false,
     canNext: false,
     monthDays: 0,
@@ -88,6 +90,8 @@ Page({
       bestStreak: habitStats.reduce((m, h) => Math.max(m, h.longest), 0),
       habitStats,
       monthTitle: `${this.year}年${this.month + 1}月`,
+      monthValue: store.dateKey(new Date(this.year, this.month, 1)).slice(0, 7),
+      isThisMonth: store.dateKey(new Date(this.year, this.month, 1)).slice(0, 7) === todayKey.slice(0, 7),
       canPrev: true,
       canNext: true,
       monthDays,
@@ -186,11 +190,26 @@ Page({
 
   shiftMonth(delta) {
     const m = cal.shiftMonth(this.year, this.month, delta)
-    this.year = m.year
-    this.month = m.month
-    // 翻回本月时默认选中今天，其他月份先不选
+    this.goToMonth(m.year, m.month)
+  },
+
+  // 点标题弹出年月选择器，直接跳到某个月
+  onPickMonth(e) {
+    const [y, m] = e.detail.value.split('-').map(Number)
+    this.goToMonth(y, m - 1)
+  },
+
+  onBackToday() {
+    const now = new Date()
+    this.goToMonth(now.getFullYear(), now.getMonth())
+  },
+
+  goToMonth(year, month) {
+    this.year = year
+    this.month = month
+    // 回到本月时默认选中今天，其他月份先不选
     const todayKey = store.dateKey()
-    const inMonth = todayKey.slice(0, 7) === store.dateKey(new Date(m.year, m.month, 1)).slice(0, 7)
+    const inMonth = todayKey.slice(0, 7) === store.dateKey(new Date(year, month, 1)).slice(0, 7)
     this.setData({ selectedKey: inMonth ? todayKey : '' })
     this.refresh()
   },

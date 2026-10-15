@@ -55,9 +55,30 @@
   justify-content: space-between;
 }
 
+.cal-center {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
 .cal-title {
+  padding: 8rpx 4rpx;
   font-size: 30rpx;
   font-weight: 600;
+}
+
+.cal-title-arrow {
+  margin-left: 6rpx;
+  font-size: 22rpx;
+  color: var(--faint);
+}
+
+.cal-today {
+  padding: 4rpx 16rpx;
+  font-size: 22rpx;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: 20rpx;
 }
 
 .cal-nav {
