@@ -14,8 +14,16 @@
         >{{item.label}}</view>
       </view>
     </view>
-    <view class="summary">
-      {{offset ? '当天' : '今日'}}已获得 <text class="hl">{{doneCount}}</text> / {{habits.length}} 颗星
+    <view class="summary-row">
+      <view class="summary">
+        {{offset ? '当天' : '今日'}}已获得 <text class="hl">{{doneCount}}</text> / {{habits.length}} 颗星
+      </view>
+      <view
+        wx:if="{{habits.length && !sorting}}"
+        class="all-btn {{doneCount === habits.length ? 'undo' : ''}}"
+        aria-role="button"
+        bindtap="onToggleAll"
+      >{{doneCount === habits.length ? '全部取消' : (offset ? '一键补全' : '一键完成')}}</view>
     </view>
     <view class="progress">
       <view class="progress-bar" style="width: {{percent}}%"></view>
@@ -25,7 +33,7 @@
   </view>
 
   <view wx:if="{{!habits.length}}" class="empty">
-    {{offset ? '那天还没有创建习惯' : '还没有习惯，先添加一个吧'}}
+    {{offset ? '那天没有要打卡的习惯' : '还没有习惯，先添加一个吧'}}
   </view>
 
   <view class="list">
@@ -34,7 +42,7 @@
       wx:key="id"
       class="card {{item.checked ? 'checked' : ''}}"
       aria-role="button"
-      aria-label="{{item.name}}，{{item.checked ? '已打卡' : '未打卡'}}，连续 {{item.streak}} 天"
+      aria-label="{{item.name}}，{{item.checked ? '已打卡' : '未打卡'}}，{{item.once ? item.tag : '连续 ' + item.streak + ' 天'}}"
       data-id="{{item.id}}"
       bindtap="onToggle"
       bindlongpress="onEdit"
@@ -42,7 +50,8 @@
       <view class="icon">{{item.icon}}</view>
       <view class="info">
         <view class="name">{{item.name}}</view>
-        <view class="meta">连续 {{item.streak}} 天 · 累计 {{item.total}} 次</view>
+        <view wx:if="{{item.once}}" class="meta"><text class="tag">{{item.tag}}</text></view>
+        <view wx:else class="meta">连续 {{item.streak}} 天 · 累计 {{item.total}} 次</view>
       </view>
       <block wx:if="{{sorting}}">
         <view
@@ -74,8 +83,65 @@
     <text wx:if="{{habits.length > 1}}" class="sort-btn" aria-role="button" bindtap="onToggleSort">{{sorting ? '完成' : '排序'}}</text>
   </view>
 
-  <view wx:if="{{sorting}}" class="add btn btn-primary" bindtap="onToggleSort">完成排序</view>
-  <view wx:else class="add btn btn-primary" bindtap="onAdd">＋ 新习惯</view>
+  <view wx:if="{{upcoming.length && !offset && !sorting}}" class="upcoming">
+    <view class="upcoming-title">即将到来</view>
+    <view
+      wx:for="{{upcoming}}"
+      wx:key="id"
+      class="upcoming-row"
+      aria-role="button"
+      aria-label="{{item.dateText}}，{{item.name}}，点击编辑"
+      data-id="{{item.id}}"
+      bindtap="onEdit"
+    >
+      <text class="upcoming-date">{{item.dateText}}</text>
+      <text class="upcoming-icon">{{item.icon}}</text>
+      <text class="upcoming-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{sorting}}" class="actions">
+    <view class="btn btn-primary action" bindtap="onToggleSort">完成排序</view>
+  </view>
+  <view wx:else class="actions">
+    <view class="btn btn-secondary action" aria-role="button" bindtap="onOpenNote">✎ 记一件事</view>
+    <view class="btn btn-primary action" aria-role="button" bindtap="onAdd">＋ 新习惯</view>
+  </view>
+
+  <view wx:if="{{noteOpen}}" class="mask" catchtouchmove="noop" bindtap="onCloseNote">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">记一件事</view>
+      <view class="sheet-desc">{{noteFuture ? '还没到这天，先安排上，到那天再打卡' : '做完了就记下，直接算一颗星'}}</view>
+      <view class="cats">
+        <view
+          wx:for="{{categories}}"
+          wx:key="key"
+          class="cat {{item.key === noteCat ? 'active' : ''}}"
+          aria-role="button"
+          aria-label="{{item.name}}{{item.key === noteCat ? '，已选中' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onPickCat"
+        >{{item.icon}} {{item.name}}</view>
+      </view>
+      <picker mode="date" value="{{noteDate}}" bindchange="onPickNoteDate">
+        <view class="sheet-date" aria-role="button" aria-label="日期 {{noteDateText}}，点击修改">
+          <text>📅 {{noteDateText}}</text>
+          <text class="sheet-date-arrow">修改 ▾</text>
+        </view>
+      </picker>
+      <input
+        class="sheet-input"
+        value="{{noteText}}"
+        placeholder="{{noteHint}}"
+        maxlength="20"
+        focus="{{noteOpen}}"
+        confirm-type="done"
+        bindinput="onNoteInput"
+        bindconfirm="onSaveNote"
+      />
+      <view class="btn btn-primary" aria-role="button" bindtap="onSaveNote">{{noteFuture ? '安排' : '记下'}}</view>
+    </view>
+  </view>
 
   <view wx:if="{{stars.length}}" class="burst" aria-hidden="true">
     <text

@@ -8,6 +8,40 @@
     bindinput="onInput"
   />
 
+  <view class="label">类型</view>
+  <view class="types">
+    <view
+      class="type {{type === 'daily' ? 'active' : ''}}"
+      aria-role="button"
+      aria-label="每天{{type === 'daily' ? '，已选中' : ''}}"
+      data-type="daily"
+      bindtap="onPickType"
+    >
+      <view class="type-name">每天</view>
+      <view class="type-desc">每天都出现在打卡列表</view>
+    </view>
+    <view
+      class="type {{type === 'once' ? 'active' : ''}}"
+      aria-role="button"
+      aria-label="指定日{{type === 'once' ? '，已选中' : ''}}"
+      data-type="once"
+      bindtap="onPickType"
+    >
+      <view class="type-name">指定日</view>
+      <view class="type-desc">只在选定的那天出现</view>
+    </view>
+  </view>
+
+  <block wx:if="{{type === 'once'}}">
+    <view class="label">日期</view>
+    <picker mode="date" value="{{date}}" bindchange="onPickDate">
+      <view class="input picker" aria-role="button" aria-label="日期 {{dateText}}，点击修改">
+        <text>{{dateText}}</text>
+        <text class="picker-arrow">▾</text>
+      </view>
+    </picker>
+  </block>
+
   <view class="label">选择图标</view>
   <view class="icons">
     <view
