@@ -156,12 +156,23 @@
     </view>
   </view>
 
-  <view class="game-entry" aria-role="button" aria-label="休息一下，玩一局 2048" bindtap="onOpenGame">
-    <text class="game-icon">🎮</text>
-    <view class="game-text">
-      <view class="game-name">休息一下 · 2048</view>
-      <view class="game-desc">打完卡奖励自己一局</view>
+  <view class="section">
+    <view class="section-title">休息一下</view>
+    <view
+      wx:for="{{games}}"
+      wx:key="key"
+      class="game-row {{index ? 'sep' : ''}}"
+      aria-role="button"
+      aria-label="玩{{item.name}}，{{item.desc}}"
+      data-url="{{item.url}}"
+      bindtap="onOpenGame"
+    >
+      <text class="game-icon">{{item.icon}}</text>
+      <view class="game-text">
+        <view class="game-name">{{item.name}}</view>
+        <view class="game-desc">{{item.desc}}</view>
+      </view>
+      <text class="game-arrow" aria-hidden="true">›</text>
     </view>
-    <text class="game-arrow" aria-hidden="true">›</text>
   </view>
 </view>

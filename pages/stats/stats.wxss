@@ -455,17 +455,18 @@
   color: var(--faint);
 }
 
-.game-entry {
+.game-row {
   display: flex;
   align-items: center;
-  margin-top: 32rpx;
-  padding: 28rpx 32rpx;
-  background: var(--surface);
-  border-radius: 24rpx;
+  padding: 20rpx 0;
 }
 
-.game-entry:active {
-  background: var(--accent-soft);
+.game-row.sep {
+  border-top: 2rpx solid var(--line);
+}
+
+.game-row:active {
+  opacity: 0.6;
 }
 
 .game-icon {

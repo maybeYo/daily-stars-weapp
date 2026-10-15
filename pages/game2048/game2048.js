@@ -1,4 +1,5 @@
 const game = require('../../utils/game2048')
+const { swipeDir } = require('../../utils/swipe')
 
 const SAVE_KEY = 'game2048'
 const BEST_KEY = 'game2048_best'
@@ -57,7 +58,7 @@ Page({
   onTouchEnd(e) {
     if (!this.start || this.data.over || this.data.showWin) return
     const t = e.changedTouches[0]
-    const dir = game.swipeDir(t.clientX - this.start.x, t.clientY - this.start.y)
+    const dir = swipeDir(t.clientX - this.start.x, t.clientY - this.start.y)
     this.start = null
     if (dir) this.slide(dir)
   },
