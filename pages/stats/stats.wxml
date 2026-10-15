@@ -22,7 +22,19 @@
         aria-label="上个月"
         bindtap="onPrevMonth"
       >‹</view>
-      <view class="cal-title">{{monthTitle}}</view>
+      <view class="cal-center">
+        <picker mode="date" fields="month" value="{{monthValue}}" bindchange="onPickMonth">
+          <view class="cal-title" aria-role="button" aria-label="{{monthTitle}}，点击选择年月">
+            {{monthTitle}}<text class="cal-title-arrow">▾</text>
+          </view>
+        </picker>
+        <view
+          wx:if="{{!isThisMonth}}"
+          class="cal-today"
+          aria-role="button"
+          bindtap="onBackToday"
+        >回到今天</view>
+      </view>
       <view
         class="cal-nav {{canNext ? '' : 'disabled'}}"
         aria-role="button"
