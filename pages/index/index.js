@@ -76,7 +76,14 @@ Page({
       .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
       .map(h => {
         const d = store.parseKey(h.date)
-        return { id: h.id, icon: h.icon, name: h.name, dateText: `${d.getMonth() + 1}月${d.getDate()}日 周${WEEK[d.getDay()]}` }
+        const cat = h.category && store.getCategory(h.category)
+        return {
+          id: h.id,
+          icon: h.icon,
+          name: h.name,
+          tag: cat ? cat.name : '',
+          dateText: `${d.getMonth() + 1}月${d.getDate()}日 周${WEEK[d.getDay()]}`
+        }
       })
     const doneCount = habits.filter(h => h.checked).length
     const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000)

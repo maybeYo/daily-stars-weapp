@@ -14,7 +14,12 @@ Page({
     canNext: false,
     monthDays: 0,
     monthPerfect: 0,
-    noteStats: [],
+    noteRange: 'month',
+    noteMonthLabel: '',
+    noteRows: [],
+    noteTotal: 0,
+    noteTop: '',
+    noteOpenKey: '',
     cells: [],
     selectedKey: '',
     selectedTitle: '',
@@ -87,10 +92,48 @@ Page({
       canNext: true,
       monthDays,
       monthPerfect,
-      noteStats: store.noteCounts(store.dateKey(new Date(this.year, this.month, 1)).slice(0, 7), habits, records),
       cells
     })
     this.showDay(this.data.selectedKey, habits, records)
+    this.showNotes(habits, records)
+  },
+
+  // 随手记统计：本月（跟着月历的月份）或全部，每个类别一条，条形按最多的那个类别比例
+  showNotes(habits = store.getHabits(), records = store.getRecords()) {
+    const month = store.dateKey(new Date(this.year, this.month, 1)).slice(0, 7)
+    const summary = store.noteSummary(this.data.noteRange === 'month' ? month : '', habits, records)
+    const max = Math.max(...summary.map(c => c.count))
+    const total = summary.reduce((sum, c) => sum + c.count, 0)
+    const noteRows = summary.map(c => ({
+      key: c.key,
+      icon: c.icon,
+      name: c.name,
+      count: c.count,
+      pct: c.count ? Math.max(6, Math.round((c.count / max) * 100)) : 0,
+      items: c.items.slice(0, 5).map(h => {
+        const d = store.parseKey(h.date)
+        return { id: h.id, text: `${d.getMonth() + 1}月${d.getDate()}日  ${h.name}` }
+      }),
+      more: Math.max(0, c.items.length - 5)
+    }))
+    this.setData({
+      noteMonthLabel: `${this.month + 1}月`,
+      noteRows,
+      noteTotal: total,
+      noteTop: total ? summary.filter(c => c.count === max).map(c => c.name).join('、') : ''
+    })
+  },
+
+  onNoteRange(e) {
+    this.setData({ noteRange: e.currentTarget.dataset.range, noteOpenKey: '' })
+    this.showNotes()
+  },
+
+  onToggleNoteCat(e) {
+    const key = e.currentTarget.dataset.key
+    const row = this.data.noteRows.find(r => r.key === key)
+    if (!row || !row.count) return
+    this.setData({ noteOpenKey: this.data.noteOpenKey === key ? '' : key })
   },
 
   // 月历下方显示选中那天每个习惯的完成情况，点一行可以补卡 / 取消。

@@ -97,6 +97,7 @@
       <text class="upcoming-date">{{item.dateText}}</text>
       <text class="upcoming-icon">{{item.icon}}</text>
       <text class="upcoming-name">{{item.name}}</text>
+      <text wx:if="{{item.tag}}" class="tag">{{item.tag}}</text>
     </view>
   </view>
 

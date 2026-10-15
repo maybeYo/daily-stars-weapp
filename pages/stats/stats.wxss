@@ -321,19 +321,6 @@
   background: var(--line);
 }
 
-.note-stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12rpx 20rpx;
-  margin: -8rpx 0 24rpx;
-  font-size: 24rpx;
-  color: var(--muted);
-}
-
-.note-stats-label {
-  color: var(--faint);
-}
 
 .all-link {
   padding: 6rpx 20rpx;
@@ -342,4 +329,107 @@
   color: var(--accent-strong);
   background: var(--accent-soft);
   border-radius: 24rpx;
+}
+
+.note-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.note-head .section-title {
+  margin-bottom: 0;
+}
+
+.seg {
+  display: flex;
+  padding: 4rpx;
+  background: var(--accent-soft);
+  border-radius: 28rpx;
+}
+
+.seg-item {
+  padding: 6rpx 22rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+  border-radius: 24rpx;
+}
+
+.seg-item.active {
+  background: var(--surface);
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.note-row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+}
+
+.note-row:active {
+  opacity: 0.6;
+}
+
+.note-cat {
+  width: 150rpx;
+  flex-shrink: 0;
+  font-size: 26rpx;
+}
+
+.bar {
+  flex: 1;
+  height: 16rpx;
+  margin: 0 20rpx;
+  background: var(--line);
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-light), var(--accent));
+  border-radius: 8rpx;
+}
+
+.note-count {
+  width: 56rpx;
+  text-align: right;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--accent-strong);
+}
+
+.note-count.zero {
+  font-weight: 400;
+  color: var(--fainter);
+}
+
+.note-items {
+  margin: 0 0 12rpx 150rpx;
+  padding: 12rpx 20rpx;
+  background: var(--bg);
+  border-radius: 12rpx;
+}
+
+.note-item,
+.note-more {
+  padding: 6rpx 0;
+  font-size: 24rpx;
+  color: var(--muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.note-more {
+  color: var(--faint);
+}
+
+.note-foot {
+  margin-top: 16rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--faint);
 }
