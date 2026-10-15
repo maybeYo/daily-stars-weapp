@@ -1,0 +1,52 @@
+<view class="page game">
+  <view class="head">
+    <view class="title">2048</view>
+    <view class="scores">
+      <view class="score-box">
+        <view class="score-label">分数</view>
+        <view class="score-num">{{score}}</view>
+        <!-- 换 key 让节点重建，每次得分都重新播放上浮动画 -->
+        <view wx:if="{{gained}}" wx:for="{{[gainKey]}}" wx:key="*this" class="gain" aria-hidden="true">+{{gained}}</view>
+      </view>
+      <view class="score-box">
+        <view class="score-label">最高</view>
+        <view class="score-num">{{best}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bar">
+    <text class="hint">滑动方块，相同数字合并，合出 2048！</text>
+    <view class="restart" aria-role="button" bindtap="onRestart">新游戏</view>
+  </view>
+
+  <view class="board-wrap">
+    <view
+      class="board"
+      catchtouchstart="onTouchStart"
+      catchtouchend="onTouchEnd"
+      catchtouchmove="noop"
+    >
+      <view wx:for="{{slots}}" wx:key="*this" class="slot" style="left: {{16 + item % 4 * 166}}rpx; top: {{16 + (item - item % 4) / 4 * 166}}rpx"></view>
+      <view
+        wx:for="{{tiles}}"
+        wx:key="id"
+        class="tile v{{item.value > 2048 ? 'super' : item.value}} {{item.isNew ? 'new' : ''}} {{item.merged ? 'merged' : ''}} {{item.value >= 1024 ? 'd4' : item.value >= 128 ? 'd3' : ''}}"
+        style="left: {{16 + item.c * 166}}rpx; top: {{16 + item.r * 166}}rpx"
+      >
+        <view class="tile-inner">{{item.value}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{over || showWin}}" class="overlay {{showWin ? 'win' : ''}}">
+      <view class="overlay-title">{{showWin ? '合出 2048 啦！' : '没有可以走的了'}}</view>
+      <view class="overlay-sub">得分 {{score}}</view>
+      <view class="overlay-btns">
+        <view wx:if="{{showWin}}" class="btn btn-secondary overlay-btn" aria-role="button" bindtap="onKeepGoing">继续玩</view>
+        <view class="btn btn-primary overlay-btn" aria-role="button" bindtap="restart">再来一局</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="foot">进度自动保存，下次回来接着玩</view>
+</view>

@@ -255,6 +255,10 @@ Page({
     })
   },
 
+  onOpenGame() {
+    wx.navigateTo({ url: '/pages/game/game' })
+  },
+
   onShareAppMessage() {
     return {
       title: `我已累计点亮 ${this.data.totalStars} 颗星 ⭐ Daily Stars`,

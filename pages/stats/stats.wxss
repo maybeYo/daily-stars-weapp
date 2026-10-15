@@ -454,3 +454,41 @@
   font-size: 22rpx;
   color: var(--faint);
 }
+
+.game-entry {
+  display: flex;
+  align-items: center;
+  margin-top: 32rpx;
+  padding: 28rpx 32rpx;
+  background: var(--surface);
+  border-radius: 24rpx;
+}
+
+.game-entry:active {
+  background: var(--accent-soft);
+}
+
+.game-icon {
+  font-size: 44rpx;
+  margin-right: 20rpx;
+}
+
+.game-text {
+  flex: 1;
+}
+
+.game-name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.game-desc {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
+.game-arrow {
+  font-size: 40rpx;
+  color: var(--faint);
+}

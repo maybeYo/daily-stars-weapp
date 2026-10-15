@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/stats/stats",
-    "pages/edit/edit"
+    "pages/edit/edit",
+    "pages/game/game"
   ],
   "window": {
     "navigationBarTitleText": "Daily Stars",
