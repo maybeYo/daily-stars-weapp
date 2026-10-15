@@ -53,6 +53,16 @@ test('dayStatus 只算当天已创建的习惯', () => {
   assert.deepEqual(cal.dayStatus('2026-10-05', [], records), { done: 0, total: 0 })
 })
 
+test('dayStatus 一次性习惯只算在指定那天', () => {
+  const habits = [
+    { id: 'a', createdAt: '2026-10-01' },
+    { id: 'o', type: 'once', createdAt: '2026-10-01', date: '2026-10-08' }
+  ]
+  const records = { '2026-10-08': ['a'], '2026-10-09': ['a'] }
+  assert.deepEqual(cal.dayStatus('2026-10-08', habits, records), { done: 1, total: 2 })
+  assert.deepEqual(cal.dayStatus('2026-10-09', habits, records), { done: 1, total: 1 })
+})
+
 test('level 分档', () => {
   assert.equal(cal.level(0, 0), 0)
   assert.equal(cal.level(0, 3), 0)

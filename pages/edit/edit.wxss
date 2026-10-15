@@ -16,6 +16,49 @@
   font-size: 30rpx;
 }
 
+.types {
+  display: flex;
+  gap: 20rpx;
+}
+
+.type {
+  flex: 1;
+  padding: 24rpx;
+  background: var(--surface);
+  border: 4rpx solid transparent;
+  border-radius: 20rpx;
+}
+
+.type.active {
+  border-color: var(--accent);
+  background: var(--checked-bg);
+}
+
+.type-name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.type.active .type-name {
+  color: var(--checked-text);
+}
+
+.type-desc {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: var(--faint);
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.picker-arrow {
+  color: var(--faint);
+}
+
 .icons {
   display: flex;
   flex-wrap: wrap;

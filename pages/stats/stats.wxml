@@ -33,6 +33,10 @@
     <view class="cal-summary">
       本月打卡 <text class="hl">{{monthDays}}</text> 天 · 全勤 <text class="hl">{{monthPerfect}}</text> 天
     </view>
+    <view wx:if="{{noteStats.length}}" class="note-stats">
+      <text class="note-stats-label">随手记</text>
+      <text wx:for="{{noteStats}}" wx:key="key" class="note-stat">{{item.icon}} {{item.name}} {{item.count}}</text>
+    </view>
     <view class="week-head">
       <view wx:for="{{weekNames}}" wx:key="*this" class="week-name">{{item}}</view>
     </view>
@@ -48,6 +52,7 @@
         bindtap="onPickDay"
       >
         <view wx:if="{{!item.blank}}" class="num {{item.level === 4 ? 'full' : item.level > 0 ? 'part' : ''}}">{{item.day}}</view>
+        <view wx:if="{{item.plan}}" class="plan-dot"></view>
       </view>
     </view>
     <view class="legend" aria-hidden="true">
@@ -55,27 +60,40 @@
       <text>全部完成</text>
       <view class="num mini part"></view>
       <text>完成一部分</text>
+      <view class="plan-dot mini"></view>
+      <text>有安排</text>
     </view>
 
     <view class="detail">
-      <view class="detail-title">{{selectedTitle}}</view>
+      <view class="detail-head">
+        <view class="detail-title">{{selectedTitle}}</view>
+        <view wx:if="{{allAction}}" class="all-link" aria-role="button" bindtap="onToggleAllDay">{{allAction === 'check' ? '一键补全' : '全部取消'}}</view>
+        <view wx:elif="{{dayDetail.length}}" class="detail-hint">{{selectedFuture ? '还没到这天 · 点击可编辑' : '点击可补卡 / 取消'}}</view>
+      </view>
+      <view wx:if="{{allLater}}" class="detail-note">这天还没开始打卡，可以补记</view>
       <view wx:if="{{selectedKey && !dayDetail.length}}" class="empty">那天还没有习惯</view>
       <view
         wx:for="{{dayDetail}}"
         wx:key="id"
-        class="detail-row"
-        aria-label="{{item.name}}，{{item.checked ? '已完成' : '未完成'}}"
+        class="detail-row {{item.active || allLater ? '' : 'inactive'}}"
+        aria-role="button"
+        aria-label="{{item.name}}，{{selectedFuture ? '计划中，点击编辑' : (item.checked ? '已完成' : '未完成') + (item.active ? '' : '，后来新增') + '，点击切换'}}"
+        data-id="{{item.id}}"
+        bindtap="onToggleDay"
       >
         <text class="detail-icon">{{item.icon}}</text>
         <text class="detail-name">{{item.name}}</text>
-        <text class="detail-star {{item.checked ? 'on' : ''}}" aria-hidden="true">{{item.checked ? '★' : '☆'}}</text>
+        <text wx:if="{{item.tag}}" class="tag">{{item.tag}}</text>
+        <text wx:if="{{!item.active && !allLater}}" class="tag muted">后来新增</text>
+        <text wx:if="{{selectedFuture}}" class="detail-edit" aria-hidden="true">›</text>
+        <text wx:else class="detail-star {{item.checked ? 'on' : ''}}" aria-hidden="true">{{item.checked ? '★' : '☆'}}</text>
       </view>
     </view>
   </view>
 
   <view class="section">
     <view class="section-title">习惯明细</view>
-    <view wx:if="{{!habitStats.length}}" class="empty">暂无习惯</view>
+    <view wx:if="{{!habitStats.length}}" class="empty">暂无每天的习惯</view>
     <view wx:for="{{habitStats}}" wx:key="id" class="row">
       <view class="row-icon">{{item.icon}}</view>
       <view class="row-name">{{item.name}}</view>

@@ -18,9 +18,9 @@ function shiftMonth(year, month, delta) {
   return { year: d.getFullYear(), month: d.getMonth() }
 }
 
-// 某天的完成情况：只算那天已经创建的习惯
+// 某天的完成情况：只算那天该做的习惯（已创建的每天习惯 + 当天的一次性习惯）
 function dayStatus(key, habits, records) {
-  const existing = habits.filter(h => !h.createdAt || h.createdAt <= key)
+  const existing = habits.filter(h => store.isActiveOn(h, key))
   const done = existing.filter(h => store.isChecked(h.id, key, records)).length
   return { done, total: existing.length }
 }

@@ -141,8 +141,30 @@
   background: var(--accent-soft);
 }
 
-.cell.future {
-  opacity: 0.35;
+.cell.future .num {
+  opacity: 0.45;
+}
+
+/* 以后的日子有安排：数字下方小金点 */
+.plan-dot {
+  position: absolute;
+  bottom: 2rpx;
+  left: 50%;
+  width: 10rpx;
+  height: 10rpx;
+  margin-left: -5rpx;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.plan-dot.mini {
+  position: static;
+  margin-left: 0;
+}
+
+.detail-edit {
+  font-size: 36rpx;
+  color: var(--faint);
 }
 
 .legend {
@@ -225,10 +247,35 @@
   border-top: 1rpx solid var(--line);
 }
 
-.detail-title {
+.detail-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   margin-bottom: 12rpx;
+}
+
+.detail-title {
   font-size: 26rpx;
   color: var(--muted);
+}
+
+.detail-hint {
+  font-size: 22rpx;
+  color: var(--fainter);
+}
+
+.detail-note {
+  margin-bottom: 8rpx;
+  font-size: 22rpx;
+  color: var(--faint);
+}
+
+.detail-row:active {
+  opacity: 0.6;
+}
+
+.detail-row.inactive {
+  opacity: 0.5;
 }
 
 .detail-row {
@@ -258,4 +305,41 @@
 
 .detail-star.on {
   color: var(--accent);
+}
+
+.tag {
+  margin-right: 16rpx;
+  padding: 2rpx 12rpx;
+  font-size: 20rpx;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: 8rpx;
+}
+
+.tag.muted {
+  color: var(--faint);
+  background: var(--line);
+}
+
+.note-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12rpx 20rpx;
+  margin: -8rpx 0 24rpx;
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
+.note-stats-label {
+  color: var(--faint);
+}
+
+.all-link {
+  padding: 6rpx 20rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: 24rpx;
 }
