@@ -1,0 +1,58 @@
+<view class="page snake">
+  <view class="head">
+    <view class="title">贪吃蛇</view>
+    <view class="scores">
+      <view class="score-box">
+        <view class="score-label">星星</view>
+        <view class="score-num">{{score}}</view>
+      </view>
+      <view class="score-box">
+        <view class="score-label">最高</view>
+        <view class="score-num">{{best}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bar">
+    <text class="hint">别撞墙，也别咬到自己</text>
+    <view class="action" aria-role="button" bindtap="onToggle">{{status === 'playing' ? '暂停' : status === 'paused' ? '继续' : '开始'}}</view>
+  </view>
+
+  <!-- 整片区域都能按：手指落下处出现摇杆，按住拖动转向 -->
+  <view
+    class="zone"
+    bindtouchstart="onTouchStart"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+    bindtouchcancel="onTouchEnd"
+  >
+    <view class="board-wrap">
+      <view class="board">
+        <view
+          wx:for="{{snake}}"
+          wx:key="i"
+          class="seg {{index === 0 ? 'head-seg' : ''}} {{status === 'over' ? 'dead' : ''}}"
+          style="left: {{item.x * 44}}rpx; top: {{item.y * 44}}rpx"
+        ></view>
+        <view wx:if="{{food}}" class="food" style="left: {{food.x * 44}}rpx; top: {{food.y * 44}}rpx">★</view>
+      </view>
+
+      <view wx:if="{{status !== 'playing'}}" class="overlay" aria-role="button" bindtap="onToggle">
+        <view class="overlay-title">{{status === 'over' ? (newBest ? '新纪录！' : '游戏结束') : status === 'paused' ? '已暂停' : '准备好了吗'}}</view>
+        <view class="overlay-sub">{{status === 'over' ? '吃到 ' + score + ' 颗星' : '点一下开始，或者直接按住拖动'}}</view>
+        <view class="btn btn-primary overlay-btn">{{status === 'over' ? '再来一局' : status === 'paused' ? '继续' : '开始'}}</view>
+      </view>
+    </view>
+
+    <view class="zone-hint">手指按在任意位置，拖动控制方向</view>
+
+    <view
+      wx:if="{{joy}}"
+      class="joy"
+      style="left: {{joy.x}}px; top: {{joy.y}}px"
+      aria-hidden="true"
+    >
+      <view class="knob" style="transform: translate({{joy.dx}}px, {{joy.dy}}px)"></view>
+    </view>
+  </view>
+</view>

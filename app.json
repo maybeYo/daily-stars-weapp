@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/stats/stats",
     "pages/edit/edit",
-    "pages/game/game"
+    "pages/game2048/game2048",
+    "pages/snake/snake"
   ],
   "window": {
     "navigationBarTitleText": "Daily Stars",

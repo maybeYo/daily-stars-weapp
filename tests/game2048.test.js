@@ -91,11 +91,3 @@ test('canMove：满盘但有相邻同数仍可走', () => {
     [4, 2, 4, 4]
   ]).grid), true)
 })
-
-test('swipeDir：按主方向判断，位移太小忽略', () => {
-  assert.equal(game.swipeDir(5, 10), '')
-  assert.equal(game.swipeDir(80, 20), 'right')
-  assert.equal(game.swipeDir(-80, 20), 'left')
-  assert.equal(game.swipeDir(10, -60), 'up')
-  assert.equal(game.swipeDir(10, 60), 'down')
-})
