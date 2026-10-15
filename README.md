@@ -19,6 +19,7 @@ Built as a native mini program. All data stays on the device (`wx.setStorageSync
   - Month calendar: tap the title to jump to any year/month, "回到今天" brings you back; past days show completion and can be made up, future days with plans get a dot and show the day's plan
   - Quick notes by category (one month / all time), tap a category for details
   - Per-habit current streak / longest streak / total
+- **2048**: a little break at the bottom of the stats page — classic 2048 rules, swipe to play, progress and best score are saved
 - **Share** the home and stats pages with friends
 - **Dark mode** following the system
 - **Screen reader** labels for VoiceOver / TalkBack
@@ -51,9 +52,11 @@ app.js / app.json / app.wxss   entry, pages & tab bar config, global styles and 
 theme.json                     light/dark colors for the navigation bar and tab bar
 utils/store.js                 local storage and stats for habits, check-ins and quick notes
 utils/calendar.js              date math for the stats calendar
+utils/game2048.js              2048 game rules
 pages/index                    today's check-ins, quick notes
 pages/edit                     add / edit a habit
 pages/stats                    stats and calendar
+pages/game                     2048 mini game
 tests/                         unit tests
 ```
 
