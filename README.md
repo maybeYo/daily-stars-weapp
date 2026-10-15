@@ -1,44 +1,62 @@
 # daily-stars-weapp
 
-Daily Stars — a minimal WeChat mini program for daily habit check-in
+English | [简体中文](README.zh-CN.md)
 
-每天完成一个习惯就点亮一颗星。原生小程序，数据存在本地（`wx.setStorageSync`），无需后端。
+Daily Stars — a minimal WeChat mini program for daily habit check-in: finish a habit, light up a star.
 
-## 功能
+Built as a native mini program. All data stays on the device (`wx.setStorageSync`) — no backend, no user data collected.
 
-- **今日打卡**：点击习惯卡片打卡/取消，显示今日进度、连续天数、累计次数；全部完成时撒星星
-- **一键打卡**：首页「一键完成 / 一键补全」把当天列表全部打上，全部完成后可「全部取消」（需确认）；月历选中过去某天也能一键补全（包括后来新增的习惯）。单个点击照常可用
-- **补卡**：首页可快速切到昨天、前天补卡；统计页月历点任意过去日期也能补，今天新建的习惯也能补
-- **习惯管理**：新增、修改名称和图标、删除（同时清除其打卡记录）、调整顺序
-- **随手记**：首页「记一件事」，选类别（助人 / 健康 / 理财 / 学习 / 其他）写一句话，日期任意：今天及以前的直接算完成的一颗星，以后的先排进「即将到来」，到那天再打卡；统计页「随手记」按类别统计件数（某月 / 全部），点类别看明细
-- **习惯类型**：每天（每天出现）或指定日（只在选定的那天出现，日期不限，以后的列在首页「即将到来」）
-- **统计**：累计星星、打卡天数、最长连续；月历（前后任意翻月；过去的日子看完成情况、可补卡，以后的日子有安排会打点，点开看当天计划）；每个习惯的连续/最长/累计
-- **深色模式**：跟随系统
+## Features
 
-## 运行
+- **Today**: tap a habit card to check in or undo; shows today's progress, current streak and total count; stars rain down when everything is done
+- **One-tap check-in**: "一键完成 / 一键补全" checks off the whole list for the viewed day, and "全部取消" undoes it (with confirmation); also available for any past day in the calendar, including habits added later. Single taps still work as usual
+- **Make-up check-ins**: switch to yesterday or the day before on the home page, or tap any past date in the stats calendar; habits created today can be made up too
+- **Habit types**: daily (shows every day) or on a set date (shows only on the chosen date, any date; upcoming ones are listed under "即将到来")
+- **Quick notes**: "✎ 记一件事" on the home page — pick a category (help others / health / money / study / other) and write a line. Any date: today or earlier counts as a done star right away; future ones are scheduled and checked in on the day
+- **Manage habits**: add, rename, change icon, delete (removes its records too), reorder
+- **Stats**
+  - Total stars, days checked in, longest streak
+  - Month calendar: tap the title to jump to any year/month, "回到今天" brings you back; past days show completion and can be made up, future days with plans get a dot and show the day's plan
+  - Quick notes by category (one month / all time), tap a category for details
+  - Per-habit current streak / longest streak / total
+- **Share** the home and stats pages with friends
+- **Dark mode** following the system
+- **Screen reader** labels for VoiceOver / TalkBack
 
-1. 打开 [微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)，导入本目录
-2. 默认使用测试号 `touristappid`；要真机预览或发布，在 `project.config.json` 中改成你自己的 AppID
+## Getting started
 
-## 测试
+1. Open the project folder in [WeChat DevTools](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)
+2. `project.config.json` uses the test AppID `touristappid`. To preview on a phone or publish, put your own AppID in `project.private.config.json` (git-ignored, and DevTools reads it first) instead of committing it:
+
+   ```json
+   {
+     "appid": "wxYourAppID"
+   }
+   ```
+
+## Tests
 
 ```shell
 npm test
 ```
 
-用 Node 自带的测试框架（需 Node 20+）模拟 `wx` 存储，测试 `utils/store.js` 的打卡与连续天数逻辑。`tests/` 和 `package.json` 已在 `project.config.json` 中排除，不会打包进小程序。
+Uses Node's built-in test runner (Node 20+) with a mocked `wx` storage to test check-ins, streaks, make-ups, quick notes and calendar logic in `utils/store.js` and `utils/calendar.js`. `tests/`, `package.json` and `.github/` are excluded in `project.config.json`, so they are not packaged into the mini program.
 
-开 PR 或推送到 `main` 时，GitHub Actions（`.github/workflows/test.yml`）会自动运行测试。
+GitHub Actions (`.github/workflows/test.yml`) runs the tests on every pull request and push to `main`.
 
-## 目录
+## Project layout
 
 ```txt
-app.js / app.json / app.wxss   全局入口、页面与 tabBar 配置、全局样式与深浅色变量
-theme.json                     导航栏、tabBar 的深浅色配置
-utils/store.js                 习惯与打卡记录的本地存储、连续天数计算
-utils/calendar.js              统计页月历的日期计算
-pages/index                    今日打卡
-pages/edit                     新增 / 编辑习惯
-pages/stats                    统计
-tests/                         store 单元测试
+app.js / app.json / app.wxss   entry, pages & tab bar config, global styles and light/dark variables
+theme.json                     light/dark colors for the navigation bar and tab bar
+utils/store.js                 local storage and stats for habits, check-ins and quick notes
+utils/calendar.js              date math for the stats calendar
+pages/index                    today's check-ins, quick notes
+pages/edit                     add / edit a habit
+pages/stats                    stats and calendar
+tests/                         unit tests
 ```
+
+## License
+
+[MIT](LICENSE)
