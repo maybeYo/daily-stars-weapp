@@ -15,7 +15,24 @@
   </view>
 
   <view class="section">
-    <view class="section-title">近 5 周</view>
+    <view class="cal-head">
+      <view
+        class="cal-nav {{canPrev ? '' : 'disabled'}}"
+        aria-role="button"
+        aria-label="上个月"
+        bindtap="onPrevMonth"
+      >‹</view>
+      <view class="cal-title">{{monthTitle}}</view>
+      <view
+        class="cal-nav {{canNext ? '' : 'disabled'}}"
+        aria-role="button"
+        aria-label="下个月"
+        bindtap="onNextMonth"
+      >›</view>
+    </view>
+    <view class="cal-summary">
+      本月打卡 <text class="hl">{{monthDays}}</text> 天 · 全勤 <text class="hl">{{monthPerfect}}</text> 天
+    </view>
     <view class="week-head">
       <view wx:for="{{weekNames}}" wx:key="*this" class="week-name">{{item}}</view>
     </view>
@@ -23,18 +40,36 @@
       <view
         wx:for="{{cells}}"
         wx:key="key"
-        class="cell level-{{item.level}} {{item.isToday ? 'today' : ''}}"
+        class="cell {{item.isToday ? 'today' : ''}} {{item.isFuture ? 'future' : ''}} {{item.key === selectedKey ? 'selected' : ''}}"
+        data-key="{{item.key}}"
+        aria-role="{{item.blank ? '' : 'button'}}"
         aria-label="{{item.label}}"
-      ></view>
+        aria-hidden="{{item.blank}}"
+        bindtap="onPickDay"
+      >
+        <view wx:if="{{!item.blank}}" class="num {{item.level === 4 ? 'full' : item.level > 0 ? 'part' : ''}}">{{item.day}}</view>
+      </view>
     </view>
     <view class="legend" aria-hidden="true">
-      <text>少</text>
-      <view class="cell mini level-0"></view>
-      <view class="cell mini level-1"></view>
-      <view class="cell mini level-2"></view>
-      <view class="cell mini level-3"></view>
-      <view class="cell mini level-4"></view>
-      <text>全勤</text>
+      <view class="num mini full"></view>
+      <text>全部完成</text>
+      <view class="num mini part"></view>
+      <text>完成一部分</text>
+    </view>
+
+    <view class="detail">
+      <view class="detail-title">{{selectedTitle}}</view>
+      <view wx:if="{{selectedKey && !dayDetail.length}}" class="empty">那天还没有习惯</view>
+      <view
+        wx:for="{{dayDetail}}"
+        wx:key="id"
+        class="detail-row"
+        aria-label="{{item.name}}，{{item.checked ? '已完成' : '未完成'}}"
+      >
+        <text class="detail-icon">{{item.icon}}</text>
+        <text class="detail-name">{{item.name}}</text>
+        <text class="detail-star {{item.checked ? 'on' : ''}}" aria-hidden="true">{{item.checked ? '★' : '☆'}}</text>
+      </view>
     </view>
   </view>
 

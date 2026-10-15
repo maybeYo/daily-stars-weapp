@@ -49,21 +49,101 @@
   margin-bottom: 12rpx;
 }
 
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cal-title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.cal-nav {
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 44rpx;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: 50%;
+}
+
+.cal-nav.disabled {
+  opacity: 0.3;
+}
+
+.cal-summary {
+  margin: 16rpx 0 24rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
 .cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   aspect-ratio: 1;
-  border-radius: 10rpx;
+  border-radius: 16rpx;
+}
+
+.num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
   box-sizing: border-box;
+  font-size: 26rpx;
+  color: var(--text);
 }
 
-.cell.today {
-  border: 4rpx solid var(--accent-strong);
+/* 完成一部分：金色圆环 */
+.num.part {
+  border: 4rpx solid var(--accent);
 }
 
-.level-0 { background: var(--heat-0); }
-.level-1 { background: var(--heat-1); }
-.level-2 { background: var(--heat-2); }
-.level-3 { background: var(--heat-3); }
-.level-4 { background: var(--heat-4); }
+/* 全部完成：实心金圆 */
+.num.full {
+  background: var(--accent);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.cell.today .num {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.cell.today .num.full {
+  color: #FFFFFF;
+}
+
+/* 今天：数字下方小横线 */
+.cell.today::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 20rpx;
+  height: 4rpx;
+  margin-left: -10rpx;
+  border-radius: 2rpx;
+  background: var(--accent-strong);
+}
+
+.cell.selected {
+  background: var(--accent-soft);
+}
+
+.cell.future {
+  opacity: 0.35;
+}
 
 .legend {
   display: flex;
@@ -75,10 +155,21 @@
   color: var(--faint);
 }
 
-.cell.mini {
+.legend text {
+  margin-right: 16rpx;
+}
+
+.legend text:last-child {
+  margin-right: 0;
+}
+
+.num.mini {
   width: 24rpx;
   height: 24rpx;
-  border-radius: 6rpx;
+}
+
+.num.mini.part {
+  border-width: 3rpx;
 }
 
 .row {
@@ -126,4 +217,45 @@
 .empty {
   text-align: center;
   color: var(--faint);
+}
+
+.detail {
+  margin-top: 28rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid var(--line);
+}
+
+.detail-title {
+  margin-bottom: 12rpx;
+  font-size: 26rpx;
+  color: var(--muted);
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.detail-icon {
+  width: 56rpx;
+  font-size: 36rpx;
+}
+
+.detail-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 28rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.detail-star {
+  font-size: 36rpx;
+  color: var(--star-off);
+}
+
+.detail-star.on {
+  color: var(--accent);
 }
