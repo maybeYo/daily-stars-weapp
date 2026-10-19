@@ -155,24 +155,4 @@
       </view>
     </view>
   </view>
-
-  <view class="section">
-    <view class="section-title">休息一下</view>
-    <view
-      wx:for="{{games}}"
-      wx:key="key"
-      class="game-row {{index ? 'sep' : ''}}"
-      aria-role="button"
-      aria-label="玩{{item.name}}，{{item.desc}}"
-      data-url="{{item.url}}"
-      bindtap="onOpenGame"
-    >
-      <text class="game-icon">{{item.icon}}</text>
-      <view class="game-text">
-        <view class="game-name">{{item.name}}</view>
-        <view class="game-desc">{{item.desc}}</view>
-      </view>
-      <text class="game-arrow" aria-hidden="true">›</text>
-    </view>
-  </view>
 </view>
