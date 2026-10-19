@@ -3,11 +3,6 @@ const cal = require('../../utils/calendar')
 
 const LEVEL_TEXT = ['未打卡', '完成少量', '完成一半左右', '完成大部分', '全部完成']
 
-const GAMES = [
-  { key: '2048', icon: '🔢', name: '2048', desc: '滑动合并数字，合出 2048', url: '/pages/game2048/game2048' },
-  { key: 'snake', icon: '🐍', name: '贪吃蛇', desc: '吃星星变长，越吃越快', url: '/pages/snake/snake' }
-]
-
 Page({
   data: {
     totalStars: 0,
@@ -34,8 +29,7 @@ Page({
     allAction: '',
     allLater: false,
     dayDetail: [],
-    habitStats: [],
-    games: GAMES
+    habitStats: []
   },
 
   onShow() {
@@ -259,10 +253,6 @@ Page({
         this.refresh()
       }
     })
-  },
-
-  onOpenGame(e) {
-    wx.navigateTo({ url: e.currentTarget.dataset.url })
   },
 
   onShareAppMessage() {
